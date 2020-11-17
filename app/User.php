@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -8,11 +8,12 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    //Authenticatable 是授权相关功能的引用
+    use Notifiable;  //消息通知相关功能引用
 
     /**
      * The attributes that are mass assignable.
-     *
+     * 防止批量赋值安全漏洞的字段白名单
      * @var array
      */
     protected $fillable = [
@@ -21,7 +22,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
-     *
+     * 对敏感信息进行隐藏
      * @var array
      */
     protected $hidden = [
@@ -36,4 +37,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $table = 'users';
 }
