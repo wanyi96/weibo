@@ -21,3 +21,5 @@ Route::get('/help', 'StaticPagesController@help')->name('help');
 Route::get('/about', 'StaticPagesController@about')->name('about');
 
 Route::get('singup','UserController@create')->name('signup');
+//resource方法定义资源路由，根据users/参数 直接访问控制器下的对应方法
+Route::resource('users','UserController');
