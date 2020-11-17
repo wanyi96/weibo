@@ -19,4 +19,14 @@ class UserController extends Controller
         //并作为第二个参数传递给 view 方法，将数据与视图进行绑定。
         return view('users.show',compact('user'));
     }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name'=>'required|unique:users|max:50',
+            'email'=>'required|email|unique:users|max:225',
+            'password'=>'required|confirmed|max:6',
+        ]);
+        return;
+    }
 }
