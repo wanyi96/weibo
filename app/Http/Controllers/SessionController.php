@@ -19,8 +19,10 @@ class SessionController extends Controller
             'email'=>'required|email|max:255',
             'password'=>'required'
         ]);
-        //借助Laravel提供的Auth的attempt方法可以很方便的完成用户的身份认证操作
-        if(Auth::attempt($credentials)){
+        //1.借助Laravel提供的Auth的attempt方法可以很方便的完成用户的身份认证操作
+        //2.Auth::attempt() 方法可接收两个参数，第一个参数为需要进行用户身份认证的数组，
+        //3.第二个参数为是否为用户开启『记住我』功能的布尔值
+        if(Auth::attempt($credentials,$request->has('remember'))){
             //登录成功后的相关操作，提示，重定向
             session()->flash('success','欢迎登录');
             return redirect()->route('users.show',[Auth::user()]);  //Auth::user()获取当前登录用户
