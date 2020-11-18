@@ -34,7 +34,9 @@ class UserController extends Controller
             'password'=>bcrypt($request->password),
         ]);
 
-         session()->flash('success','欢迎，您将在这里开启一段新的旅程~');
+        //注册后自动登录
+        Auth::login($user);
+        session()->flash('success','欢迎，您将在这里开启一段新的旅程~');
         return redirect()->route('users.show',[$user]);
     }
 }
