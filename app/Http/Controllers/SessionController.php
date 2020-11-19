@@ -7,6 +7,13 @@ use Auth;
 
 class SessionController extends Controller
 {
+    public function __construct()
+    {
+        //只让未登录用户访问登录页面
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
     //
     public function create()
     {
@@ -25,7 +32,9 @@ class SessionController extends Controller
         if(Auth::attempt($credentials,$request->has('remember'))){
             //登录成功后的相关操作，提示，重定向
             session()->flash('success','欢迎登录');
-            return redirect()->route('users.show',[Auth::user()]);  //Auth::user()获取当前登录用户
+            //重定向到上次访问的地址
+            $fallback = route('users.show',Auth::user());
+            return redirect()->intended($fallback);  //Auth::user()获取当前登录用户
         }else{
             //登录失败后的操作
             session()->flash('danger','很抱歉，您的邮箱和密码不匹配');
