@@ -10,8 +10,9 @@ class UsersTableSeeder extends Seeder
         factory(User::class)->times(50)->create();
 
         $user = User::find(1);
-        $user->name = 'Summer';
-        $user->email = 'summer@example.com';
+        $user->name = 'wanyi';
+        $user->email = '408629610@qq.com';
+        $user->is_admin = true;
         $user->save();
     }
 }

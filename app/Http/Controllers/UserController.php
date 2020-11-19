@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        //对于未登录用户，不过滤这几个方法
+        //除了下面几个操作，其他方法都要先登录才能访问
         $this->middleware('auth',[
             'except'=>['show','create','store','index']
         ]);
@@ -82,5 +82,12 @@ class UserController extends Controller
 
         session()->flash('success','个人资料更新成功');
         return redirect()->route('users.show',$user->id);
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        session()->flash('success','成功删除用户！');
+        return back();  //删除后返回之前的页面，即用户列表页面
     }
 }
