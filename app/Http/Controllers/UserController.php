@@ -7,16 +7,23 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-public function __construct()
-{
-    $this->middleware('auth',[
-        'except'=>['show','create','store']
-    ]);
-    //只让未登录用户访问注册页面
-    $this->middleware('guest',[
-        'only'=>['create']
-    ]);
-}
+    public function __construct()
+    {
+        //对于未登录用户，不过滤这几个方法
+        $this->middleware('auth',[
+            'except'=>['show','create','store','index']
+        ]);
+        //只让未登录用户访问注册页面
+        $this->middleware('guest',[
+            'only'=>['create']
+        ]);
+    }
+
+    public function index()
+    {
+        $users = User::paginate(10);
+        return view('users.index',compact('users'));
+    }
 
     //
     public function create()
