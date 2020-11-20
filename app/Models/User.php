@@ -40,6 +40,11 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
+
 
     public function gravatar($size = '100')
     {
