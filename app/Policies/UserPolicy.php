@@ -32,4 +32,9 @@ class UserPolicy
         //当前用户is_admin字段必须为true,并且操作对象不能是自己本身
         return $currentUser->is_admin && $currentUser->id !== $user->id;
     }
+
+    public function follow(User $currentUser,User $user)
+    {
+        return $currentUser->id !== $user->id;
+    }
 }
